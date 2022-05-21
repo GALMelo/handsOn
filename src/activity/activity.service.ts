@@ -46,7 +46,7 @@ export class ActivityService {
     const activity = await this.activityRepository.findOne({id, user: {id: userid}})
 
     if( activity ){
-      return this.activityRepository.delete(activity);
+      return this.activityRepository.delete(activity.id);
     } else {
       throw  new BadRequestException('Activity dont exists');
     }
