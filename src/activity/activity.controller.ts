@@ -16,8 +16,8 @@ export class ActivityController {
   }
 
   @Get()
-  findAll() {
-    return this.activityService.findAll();
+  findAll(@Request() req) {
+    return this.activityService.findAll(req.user.id);
   }
 
   @Post('updateDone/:id')
@@ -26,12 +26,12 @@ export class ActivityController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
-    return this.activityService.update(+id, updateActivityDto);
+  update(@Request() req, @Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
+    return this.activityService.update(req.user.id, +id, updateActivityDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.activityService.remove(+id);
+  remove(@Request() req, @Param('id') id: string) {
+    return this.activityService.remove(req.user.id, +id);
   }
 }

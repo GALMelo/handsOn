@@ -1,9 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { Activity } from './entities/activity.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class ActivityService {
@@ -15,8 +16,8 @@ export class ActivityService {
     return this.activityRepository.save({...createActivityDto, user: id});
   }
 
-  findAll() {
-    return `This action returns all activity`;
+  async findAll(id) {
+    return await this.activityRepository.find({ user: {id} });
   }
 
   async updateById(id){
@@ -31,11 +32,23 @@ export class ActivityService {
     }
   }
     
-  async update(id: number, updateActivityDto: UpdateActivityDto) {
-    return this.activityRepository.update(id,updateActivityDto);
+  async update(userid, id: number, updateActivityDto: UpdateActivityDto) {
+    const activity = await this.activityRepository.findOne({id, user: {id: userid}})
+
+    if( activity ){
+      return this.activityRepository.update(id,updateActivityDto);
+    } else {
+      throw  new BadRequestException('Activity dont exists');
+    }
   }
 
-  async remove(id: number) {
-    return this.activityRepository.delete(id)
+  async remove(userid, id: number) {
+    const activity = await this.activityRepository.findOne({id, user: {id: userid}})
+
+    if( activity ){
+      return this.activityRepository.delete(activity);
+    } else {
+      throw  new BadRequestException('Activity dont exists');
+    }
   }
 }
