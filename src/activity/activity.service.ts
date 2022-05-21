@@ -20,8 +20,8 @@ export class ActivityService {
     return await this.activityRepository.find({ user: {id} });
   }
 
-  async updateById(id){
-    const activity = await this.activityRepository.findOne(id)
+  async updateById(userid, id){
+    const activity = await this.activityRepository.findOne({id, user: {id: userid}})
 
     if (!activity) throw new BadRequestException('Activity dont exists');
 

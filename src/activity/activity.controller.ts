@@ -21,8 +21,8 @@ export class ActivityController {
   }
 
   @Post('updateDone/:id')
-  updateById(@Param('id', ParseIntPipe) id: number){
-    return this.activityService.updateById(id)
+  updateById(@Request() req, @Param('id', ParseIntPipe) id: number){
+    return this.activityService.updateById(req.user.id,id)
   }
 
   @Patch(':id')
