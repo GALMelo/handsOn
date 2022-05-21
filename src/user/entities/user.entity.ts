@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Cat } from 'src/cat/entities/cat.entity';
+import { Activity } from 'src/activity/entities/activity.entity';
 
 @Entity()
 export class User {
@@ -25,4 +26,7 @@ export class User {
 
   @OneToMany(() => Cat, (cat) => cat.user)
   cats: Cat[];
+
+  @OneToMany(() => Activity, (activity) => activity.user)
+  activities: Activity[];
 }

@@ -1,8 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 
-export class CreateCatDto {
-
+export class CreateActivityDto {
     @ApiProperty()
     @IsNotEmpty()
     @IsString()
@@ -10,11 +9,12 @@ export class CreateCatDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsNumber()
-    age: number;
+    @IsString()
+    description: string;
 
     @ApiProperty()
     @IsNotEmpty()
-    @IsString()
-    breed: string;
+    @IsBoolean()
+    done: boolean
 }
+

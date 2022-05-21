@@ -11,9 +11,10 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { ActivityModule } from './activity/activity.module';
 
 @Module({
-  imports: [ TypeOrmModule.forRoot(), CatModule, AuthModule, UserModule, PassportModule ],
+  imports: [ TypeOrmModule.forRoot(), CatModule, AuthModule, UserModule, PassportModule, ActivityModule ],
   controllers: [AppController],
   providers: [AppService, UserService, AuthService, {
     provide: APP_GUARD,
