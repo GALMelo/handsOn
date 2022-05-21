@@ -17,4 +17,5 @@ export class CreateCatDto {
     @IsNotEmpty()
     @IsString()
     breed: string;
+    
 }

@@ -11,8 +11,8 @@ export class CatService {
     @InjectRepository (Cat)
     private catRepository: Repository<Cat>
   ){}
-  async create(createCatDto: CreateCatDto) {
-    return this.catRepository.save(createCatDto);
+  async create(userid, createCatDto: CreateCatDto) {
+    return this.catRepository.save({...createCatDto, user: userid});
   }
 
   async findAll() {

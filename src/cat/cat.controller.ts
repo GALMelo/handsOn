@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CatService } from './cat.service';
 import { CreateCatDto } from './dto/create-cat.dto';
@@ -11,8 +11,8 @@ export class CatController {
   constructor(private readonly catService: CatService) {}
 
   @Post()
-  async create(@Body() createCatDto: CreateCatDto) {
-    return this.catService.create(createCatDto);
+  async create(@Request() req, @Body() createCatDto: CreateCatDto) {
+    return this.catService.create(req.user.id, createCatDto);
   }
 
   @Get()
