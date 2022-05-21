@@ -25,13 +25,13 @@ export class ActivityController {
     return this.activityService.updateById(id)
   }
 
-  @Patch('')
-  update(@Request() req, @Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
     return this.activityService.update(+id, updateActivityDto);
   }
 
-  @Delete('')
-  remove(@Request() req, @Param('id') id: string) {
+  @Delete(':id')
+  remove(@Param('id') id: string) {
     return this.activityService.remove(+id);
   }
 }
